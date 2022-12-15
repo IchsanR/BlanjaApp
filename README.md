@@ -273,7 +273,7 @@ Contributors name and contact info
   * Muhammad Rhefa Farizi [@reijiren](https://github.com/reijiren)
   * Rahmat Furqon [@sukron21](https://github.com/sukron21)
 
-* FRONTEND TIM
+* FRONTEND TEAM
   * Ainur Ridwan [@ainurcoding](https://github.com/ainurcoding)
   * Ichsan Ramadhan Mokodompit [@IchsanR](https://github.com/IchsanR)
   * Muhamad Iqbal Aprido [@Iqbalapredo](https://github.com/Iqbalapredo)
