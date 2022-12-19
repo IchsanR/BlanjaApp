@@ -6,40 +6,52 @@ import "./style.css"
 import axios from "axios";
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const SelectPayment = () => {
-  const Total_Bayar = JSON.parse(localStorage.getItem("Pembayaran") || 0);
-  const addres = JSON.parse(localStorage.getItem("address") || 0);
-  const [method, setMethod]=useState(null);
+  let Total_Bayar = JSON.parse(localStorage.getItem("Pembayaran")) || 0;
+  let addres = JSON.parse(localStorage.getItem("address")) || 0;
+
+  const navigate = useNavigate();
+
+  const [method, setMethod] = useState(null);
   const user = useSelector((state)=>state.user.user);
 
   const handlePost = async(e) => {
     e.preventDefault();
-    const dataOrder = JSON.parse(localStorage.getItem("order"));
+    if(addres === 0){
+      alert('Please go to profile and set your main address!');
+    }else if(!method){
+      alert('Please select payment method!');
+    }else{
+      const dataOrder = JSON.parse(localStorage.getItem("order"));
     
-    await dataOrder.map((e, i) => {
-      const body = {
-        userid: user.id_user,
-        id_order: e.id_order,
-        id_address:addres.id_address,
-        payment_method: method,
-        quantity: e.quantity,
-        price: e.price,
-        id: e.id_product,
-        stockProduk: e.stock,
-      };
+      await dataOrder.map((e, i, arr) => {
+        const body = {
+          userid: user.id_user,
+          id_order: e.id_order,
+          id_address:addres.id_address,
+          payment_method: method,
+          quantity: e.quantity,
+          price: e.price,
+          id: e.id_product,
+          stockProduk: e.stock,
+        };
 
-      axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/transaction`, body)
-      .then((res) => {
-        alert("Transaction " + i + " added successfully");
+        axios
+        .post(`${process.env.REACT_APP_BACKEND_URL}/transaction`, body)
+        .then((res) => {
+          alert("Transaction " + i + " added successfully");
+          if(i === arr.length - 1){
+            window.location.reload();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("Failed to add Transaction");
+        });
       })
-      .catch((err) => {
-        console.log(err);
-        alert("Failed to add Transaction");
-      });
-    })
-    window.location.reload();
+    }
   };
 
   return (

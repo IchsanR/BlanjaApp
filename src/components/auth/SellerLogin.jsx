@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 const SellerLogin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  localStorage.clear();
 
   const [form, setForm] = useState({
     email: '',

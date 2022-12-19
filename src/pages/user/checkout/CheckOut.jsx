@@ -16,7 +16,7 @@ const CheckOut = () => {
   let total = 0;
   const idUser = useSelector((state) => state.user.user.id_user)
   const idAddres = useSelector((state) => state.user.user.main_address)
-  
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACKEND_URL}/order/userstatus/${idUser}?status=0`)
@@ -27,20 +27,23 @@ const CheckOut = () => {
       .catch((err) => {
         console.log(err); 
       });
-    },[idUser]);
+  },[idUser]);
 
-    useEffect(() => {
+  useEffect(() => {
+    if(!idAddres){
+      localStorage.setItem('address', JSON.stringify(0));
+    }else{
       axios
-        .get(`${process.env.REACT_APP_BACKEND_URL}/address/${idAddres}`)
-        .then((response) => {
-          setDataAddres(response.data.data)
-          localStorage.setItem('address', JSON.stringify(response.data.data[0]));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      },[idAddres]);
-  
+      .get(`${process.env.REACT_APP_BACKEND_URL}/address/${idAddres}`)
+      .then((response) => {
+        setDataAddres(response.data.data)
+        localStorage.setItem('address', JSON.stringify(response.data.data[0]));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  },[idAddres]);
 
   const add = (num) => {
     total += num;
@@ -182,7 +185,6 @@ const CheckOut = () => {
                     </div>
                     </div>
                   )}
-                  
                   {/* sampe sini */}
                 </div>
               ))}
@@ -253,6 +255,9 @@ const CheckOut = () => {
                   aria-labelledby="staticBackdropLabel"
                   aria-hidden="true"
                 >
+                  {
+
+                  }
                   <SelectPayment />
                 </div>
                 {/* end of modal 4 */}

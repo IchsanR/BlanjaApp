@@ -26,17 +26,6 @@ const ChangeAddress = () => {
     });
   };
 
-  useEffect(() => {
-    if (address.length < 1) {
-      alert("your address  data has not been set, please add your address");
-    }
-    if (address.length > 0) {
-      setDataAddress(address[0]);
-    }
-  }, []);
-
-  
-
   const onSubmitHandler = (e) => {
     console.log(mainAddressData)
     e.preventDefault();
