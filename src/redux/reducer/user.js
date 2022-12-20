@@ -19,6 +19,7 @@ export default function userReducer(state = initialState, action) {
         case "UPDATE_SELLER_BYID_REJECTED":
             return { ...state, isLoading: false, isError: true };
         case "UPDATE_CUST_BYID_FULFILLED":
+        case "UPDATE_IMAGE_USER_FULFILLED":
         case "UPDATE_SELLER_BYID_FULFILLED":
             return {
                 ...state,

@@ -75,19 +75,27 @@ const MyProfile = () => {
       const body = {
         image: image,
       };
-      const handleSuccess = (data) => {
+      const handleSuccess = async(data) => {
         console.log('image', data);
+        await Swal.fire({
+          icon: 'success',
+          title: 'Profile Updated!',
+          showConfirmButton: false,
+          timer: 1800,
+        })
       };
       dispatch(updateImageUser(id, body, handleSuccess));
     }
 
     const handleSuccess = async(data) => {
-      await Swal.fire({
-        icon: 'success',
-        title: 'Profile Updated!',
-        showConfirmButton: false,
-        timer: 1800,
-      })
+      if(!image){
+        await Swal.fire({
+          icon: 'success',
+          title: 'Profile Updated!',
+          showConfirmButton: false,
+          timer: 1800,
+        })
+      }
     };
     const id = user.id_user;
 

@@ -30,8 +30,14 @@ const MyProfileStore = () => {
       const body = {
         image: image
       };
-      const handleSuccess = (data) => {
+      const handleSuccess = async(data) => {
         console.log(data);
+        await Swal.fire({
+          icon: 'success',
+          title: 'Profile Updated!',
+          showConfirmButton: false,
+          timer: 1800,
+        })
       };
       dispatch(updateImageUser(id, body, handleSuccess));
     }
@@ -45,12 +51,14 @@ const MyProfileStore = () => {
     };
 
     const handleSuccess = async(data) => {
-      await Swal.fire({
-        icon: 'success',
-        title: 'Profile Updated!',
-        showConfirmButton: false,
-        timer: 1800,
-      })
+      if(!image){
+        await Swal.fire({
+          icon: 'success',
+          title: 'Profile Updated!',
+          showConfirmButton: false,
+          timer: 1800,
+        })
+      }
     };
 
     const id = user.id_seller;

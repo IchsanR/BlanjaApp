@@ -27,6 +27,8 @@ const Product = () => {
 			.get(`${process.env.REACT_APP_BACKEND_URL}/product/${id_product}`)
 			.then((response) => {
 				setDetails(response.data.data.rows[0]);
+				setActive(response.data.data.rows[0].color?.split(",")[0]);
+				setSize(response.data.data.rows[0].size?.split(",")[0]);
 			})
 			.catch((error) => {
 				console.log(error);

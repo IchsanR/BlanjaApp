@@ -3,7 +3,7 @@ import Navbar from "../../components/NavbarLogin";
 import sampleImage from "../../assets/images/sample-image.png";
 import dummyTools from "../../assets/images/dummy-tools.png";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // action 
 import {
   getByIdProduct,
@@ -13,6 +13,7 @@ import {
 const ProductEdit = () => {
   const [photo, setPhoto] = useState();
   const [dataProduct, setDataProduct] = useState([]);
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     product_name: null,
     price: null,
@@ -98,8 +99,13 @@ const ProductEdit = () => {
 
     const id = dataProduct.id_product;
     const handleSuccessForm = (data) => {
-      console.log("product", data);
-      window.location.reload();
+      if(data.data.status === "success"){
+        alert('Update success')
+        return navigate('/profile');
+      }else{
+        alert(data.data.message);
+      }
+      
     };
     dispatch(updateProduct(id, body, handleSuccessForm));
   };
