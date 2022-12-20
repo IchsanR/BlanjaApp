@@ -10,43 +10,33 @@ const SellingProduct = () => {
   // page logic
   const dispatch = useDispatch();
   const [dataUser, setDataUser] = useState([]);
-  const [newCon, setNewCon] = useState(false);
-  const [secCon, setSecCon] = useState(false);
   const [photo, setPhoto] = useState();
   const [form, setForm] = useState({
     product_name: "",
     price: "",
     stock: "",
-    condition: "",
+    condition: 0,
     color: "",
     size: "",
     category: "",
     description: "",
   });
-  
+
   const {user} = useSelector((state) => state.user);
   useEffect(() => {
     setDataUser(user)
   })
-  const toggleCheckedNew = () => {
-    setNewCon((prevstate) => !prevstate);
-    if (newCon) {
-      setForm({ ...form, condition: 0 });
-    }
+  const toggleCondition = (num) => {
+    setForm({ ...form, condition: num });
   };
 
-  const toggleCheckedSecond = () => {
-    setSecCon((prevstate) => !prevstate);
-    if (secCon) {
-      setForm({ ...form, condition: 1 });
-    }
-  };
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
   };
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const handleSuccess = async(data) => {
@@ -74,7 +64,6 @@ const SellingProduct = () => {
       description: form.description,
       photo: photo,
     };
-    console.log(body);
     dispatch(insertProduct(body, handleSuccess));
   };
   
@@ -229,7 +218,7 @@ const SellingProduct = () => {
                   type="radio"
                   name="condition"
                   id="flexRadioDefault1"
-                  onClick={toggleCheckedNew}
+                  onClick={() => toggleCondition(0)}
                 />
                 <label className="form-check-label" htmlFor="flexRadioDefault1">
                   Baru
@@ -241,7 +230,7 @@ const SellingProduct = () => {
                   type="radio"
                   name="condition"
                   id="flexRadioDefault2"
-                  onClick={toggleCheckedSecond}
+                  onClick={() => toggleCondition(1)}
                 />
                 <label className="form-check-label" htmlFor="flexRadioDefault2">
                   Bekas
