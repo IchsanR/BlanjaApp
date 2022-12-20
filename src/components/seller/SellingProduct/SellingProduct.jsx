@@ -13,8 +13,8 @@ const SellingProduct = () => {
   const [photo, setPhoto] = useState();
   const [form, setForm] = useState({
     product_name: "",
-    price: "",
-    stock: "",
+    price: 0,
+    stock: 0,
     condition: 0,
     color: "",
     size: "",
